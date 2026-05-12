@@ -22,6 +22,11 @@ def load_news_data(file_path):
 
     df = pd.read_csv(file_path)
 
-    df['date'] = pd.to_datetime(df['date'])
+    # Convert mixed-format dates safely
+    df['date'] = pd.to_datetime(
+        df['date'],
+        errors='coerce',
+        utc=True
+    )
 
     return df
